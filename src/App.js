@@ -5,8 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import useStyles from '../src/styleMaker'
 import { connect } from "react-redux";
-
-
+import { FormGroup } from '@material-ui/core';
 
 
 function App(props) {
@@ -31,59 +30,61 @@ function App(props) {
     props.dispatch({type: 'SUBMIT', data})
     console.log(props.formData)
   }
+
   
 
   return (
     
     <React.Fragment>
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>XD</Paper>
-    </Grid>
+    <div className={classes.container}>
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>MENU GOES THERE</Paper>
+      </Grid>
 
-      <form className={classes.container} noValidate autoComplete="off">
-       <TextField
-        id=""
-        label="SSN"
-        value={values.ssn}
-        onChange={handleChange('ssn')}
-        type="number"
-        className={classes.textField}
-        name='ssn'
-  
-        margin="normal"
-      />
-       <TextField
-        id=""
-        label="Phone"
-        value={values.phone}
-        onChange={handleChange('phone')}
-        type="number"
-        className={classes.textField}
-        name='phone'
-       
-        margin="normal"
-      />
-       <TextField
-        id=""
-        label="Email"
-        value={values.email}
-        onChange={handleChange('email')}
-        type="email"
-        className={classes.textField}
-        margin="normal"
-        name='email'
-      />
+      <Grid item xs={12}>
+          <Grid item xs={12}>
+            <FormGroup noValidate autoComplete="on">
+              <TextField
+                id=""
+                label="SSN"
+                value={values.ssn}
+                onChange={handleChange('ssn')}
+                type="number"
+                className={classes.textField}
+                name='ssn'
+              />
+              <TextField
+                id=""
+                label="Phone"
+                value={values.phone}
+                onChange={handleChange('phone')}
+                type="number"
+                className={classes.textField}
+                name='phone'
+              />
+              <TextField
+                id=""
+                label="Email"
+                value={values.email}
+                onChange={handleChange('email')}
+                type="email"
+                className={classes.textField}
+                name='email'
+              />
 
-      <Button
-        onClick={() => onSubmit()}
-        variant="contained"
-        color="primary"
-        size="small"
-        className={classes.button}
-      >
-        Save
-      </Button>
-    </form>
+              <Button
+                onClick={() => onSubmit()}
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Save
+              </Button>
+            </FormGroup>
+          </Grid>
+      </Grid>
+    </div>
+
     </React.Fragment>
    
   );
