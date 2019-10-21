@@ -8,6 +8,11 @@ import { connect } from "react-redux";
 import { FormGroup } from '@material-ui/core';
 const axios = require('axios').default;
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 function App(props) {
   const classes = useStyles();
@@ -15,8 +20,22 @@ function App(props) {
     ssn: '',
     phone: '',
     email: '',
+    country: '',
     multiline: 'Controlled',
   });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
@@ -78,6 +97,31 @@ function App(props) {
                 className={classes.textField}
                 name='email'
               />
+
+
+              <FormControl className={classes.textField}>
+                <InputLabel htmlFor="country">Country</InputLabel>
+                <Select
+                  label="Country"
+                  open={open}
+                  onClose={handleClose}
+                  onOpen={handleOpen}
+                  value={5}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'country',
+                    id: 'country',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+
 
               <Button
                 onClick={() => onSubmit()}
