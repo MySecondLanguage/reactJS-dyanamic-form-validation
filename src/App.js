@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import useStyles from '../src/styleMaker'
 import { connect } from "react-redux";
 import { FormGroup } from '@material-ui/core';
+const axios = require('axios').default;
 
 
 function App(props) {
@@ -31,7 +32,13 @@ function App(props) {
     console.log(props.formData)
   }
 
-  
+  const fetchAPI = () => {
+    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
+      props.dispatch({ type: 'GET', response });
+    })
+  }
+
+  fetchAPI()
 
   return (
     
