@@ -43,7 +43,7 @@ function App(props) {
 
       <Grid item xs={12}>
           <Grid item xs={12}>
-            <FormGroup noValidate autoComplete="on">
+            <FormGroup className={classes.formGroup} noValidate autoComplete="on">
               <TextField
                 id=""
                 label="SSN"
