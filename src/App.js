@@ -4,13 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import useStyles from '../src/styleMaker'
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 
 
 
 
 function App(props) {
-
   const classes = useStyles();
   const [values, setValues] = React.useState({
     ssn: '',
@@ -29,14 +28,16 @@ function App(props) {
       phone: values.phone,
       email: values.email
     }
-    console.log(data)
     props.dispatch({type: 'SUBMIT', data})
+    console.log(props.formData)
   }
+  
 
   return (
+    
     <React.Fragment>
     <Grid item xs={12}>
-      <Paper className={classes.paper}>xs=12</Paper>
+      <Paper className={classes.paper}>XD</Paper>
     </Grid>
 
       <form className={classes.container} noValidate autoComplete="off">
@@ -88,4 +89,6 @@ function App(props) {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({ formData: state.formData });
+
+export default connect(mapStateToProps)(App);

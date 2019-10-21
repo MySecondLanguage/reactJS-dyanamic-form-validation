@@ -1,5 +1,6 @@
 var initialState = {
     country: [],
+    formData: {},
   };
   
   var Reducer = (state = initialState, action) => {
@@ -11,10 +12,9 @@ var initialState = {
           country: [...state.country, ...action.response.data],
         }
         case 'SUBMIT':
-          console.log(action)
           return {
             ...state,
-            country: [...state.country, ...action.response.data],
+            formData: action.data,
           }
 
       default:
