@@ -56,6 +56,7 @@ function App(props) {
       props.dispatch({ type: 'GET', response });
     })
   }
+  console.log(props.country)
 
   fetchAPI()
 
@@ -141,6 +142,6 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => ({ formData: state.formData });
+const mapStateToProps = (state) => ({ formData: state.formData, country: state.country });
 
 export default connect(mapStateToProps)(App);
