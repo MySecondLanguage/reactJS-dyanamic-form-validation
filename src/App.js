@@ -48,7 +48,6 @@ function App(props) {
       email: values.email
     }
     props.dispatch({type: 'SUBMIT', data})
-    console.log(props.formData)
   }
 
   const fetchAPI = () => {
@@ -56,7 +55,6 @@ function App(props) {
       props.dispatch({ type: 'GET', response });
     })
   }
-  console.log(props.country)
 
   fetchAPI()
 
@@ -117,9 +115,9 @@ function App(props) {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {props.country.map(country => (
+                    <MenuItem value={country.name}>{country.name}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
 
