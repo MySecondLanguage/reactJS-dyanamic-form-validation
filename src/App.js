@@ -54,7 +54,8 @@ function App(props) {
     const data = {
       ssn: values.ssn,
       phone: values.phone,
-      email: values.email
+      email: values.email,
+      country: values.country,
     }
     props.dispatch({type: 'SUBMIT', data})
   }
@@ -109,7 +110,7 @@ function App(props) {
                   onClose={handleClose}
                   onOpen={handleOpen}
                   value={values.country}
-                  onChange={handleChange}
+                  onChange={handleChange('country')}
                   inputProps={{
                     name: 'country',
                     id: 'country',
@@ -119,7 +120,7 @@ function App(props) {
                     <em>None</em>
                   </MenuItem>
                   {props.country.map(country => (
-                    <MenuItem value={country.name}>{country.name}</MenuItem>
+                    <MenuItem onChange={handleChange('country')} value={country.name}>{country.name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
