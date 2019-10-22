@@ -42,6 +42,8 @@ function App(props) {
   };
 
 
+  
+  // const [country, setValues] = React.useState('');
 
 
   const handleChange = name => event => {
@@ -106,6 +108,7 @@ function App(props) {
                   open={open}
                   onClose={handleClose}
                   onOpen={handleOpen}
+                  value={values.country}
                   onChange={handleChange}
                   inputProps={{
                     name: 'country',
