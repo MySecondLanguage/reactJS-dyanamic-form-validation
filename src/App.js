@@ -27,6 +27,7 @@ function App(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
+    fetchAPI()
     setOpen(true);
   };
 
@@ -55,8 +56,6 @@ function App(props) {
       props.dispatch({ type: 'GET', response });
     })
   }
-
-  fetchAPI()
 
   return (
     
