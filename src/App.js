@@ -26,6 +26,12 @@ function App(props) {
 
   const [open, setOpen] = React.useState(false);
 
+  const fetchAPI = () => {
+    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
+      props.dispatch({ type: 'GET', response });
+    })
+  }
+
   const handleOpen = () => {
     fetchAPI()
     setOpen(true);
@@ -51,11 +57,7 @@ function App(props) {
     props.dispatch({type: 'SUBMIT', data})
   }
 
-  const fetchAPI = () => {
-    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
-      props.dispatch({ type: 'GET', response });
-    })
-  }
+ 
 
   return (
     
@@ -104,7 +106,6 @@ function App(props) {
                   open={open}
                   onClose={handleClose}
                   onOpen={handleOpen}
-                  value={5}
                   onChange={handleChange}
                   inputProps={{
                     name: 'country',
