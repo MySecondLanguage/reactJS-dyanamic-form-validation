@@ -13,8 +13,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import validator from '../src/validator';
+
 
 function App(props) {
+  // more detail can be found here for validation tutorial
+  // https://www.codementor.io/muhammedali956/implementing-dynamic-form-validators-in-reactjs-6j7q0l8e7
+  const validators = validator;
   const classes = useStyles();
   const [values, setValues] = React.useState({
     ssn: '',
@@ -43,12 +48,51 @@ function App(props) {
 
 
   
-  // const [country, setValues] = React.useState('');
+  // // const [country, setValues] = React.useState('');
+
+  const updateValidators = (fieldName, value) => {
+    console.log(fieldName, value)
+    validators[fieldName].errors = [];
+    validators[fieldName].state = value;
+    validators[fieldName].valid = true;
+    validators[fieldName].rules.forEach((rule) => {
+      if (rule.test instanceof RegExp) {
+        if (!rule.test.test(value)) {
+          validators[fieldName].errors.push(rule.message);
+          validators[fieldName].valid = false;
+        }
+      } else if (typeof rule.test === 'function') {
+        if (!rule.test(value)) {
+          validators[fieldName].errors.push(rule.message);
+          validators[fieldName].valid = false;
+        }
+      }
+    });
+  }
+
+  const displayValidationErrors = (fieldName) => {
+    const validator = validators[fieldName];
+    const result = '';
+    if (validator && !validator.valid) {
+      const errors = validator.errors.map((info, index) => {
+        return <span className="error" key={index}>* {info}</span>;
+      });
+
+      return (
+        <div className="col s12 row">
+          {errors}
+        </div>
+      );
+    }
+    return result;
+  }
 
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
+    updateValidators(name, event.target.value);
   };
+
 
   const onSubmit = () => {
     const data = {
@@ -57,8 +101,28 @@ function App(props) {
       email: values.email,
       country: values.country,
     }
+    console.log(data)
     props.dispatch({type: 'SUBMIT', data})
   }
+
+  // This function resets all validators for this form to the default state
+  // const resetValidators =() => {
+  //   Object.keys(this.validators).forEach((fieldName) => {
+  //     validators[fieldName].errors = [];
+  //     validators[fieldName].state = '';
+  //     validators[fieldName].valid = false;
+  //   });
+  // }
+
+  // const isFormValid = () => {
+  //   let status = true;
+  //   Object.keys(validators).forEach((field) => {
+  //     if (!validators[field].valid) {
+  //       status = false;
+  //     }
+  //   });
+  //   return status;
+  // }
 
  
 
@@ -78,10 +142,11 @@ function App(props) {
                 label="SSN"
                 value={values.ssn}
                 onChange={handleChange('ssn')}
-                type="number"
+                type="text"
                 className={classes.textField}
                 name='ssn'
               />
+              {displayValidationErrors('ssn')}
               <TextField
                 id=""
                 label="Phone"
@@ -91,6 +156,7 @@ function App(props) {
                 className={classes.textField}
                 name='phone'
               />
+              {displayValidationErrors('phone')}
               <TextField
                 id=""
                 label="Email"
@@ -100,6 +166,7 @@ function App(props) {
                 className={classes.textField}
                 name='email'
               />
+               {displayValidationErrors('email')}
 
 
               <FormControl className={classes.textField}>
